@@ -1,0 +1,34 @@
+{
+  "name": "simple-chat-app",
+  "version": "1.0.0",
+  "description": "Laboratory Work #1 - Simple Chat Application built with React",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntonKholodar/Frontend-laboratory-works.git"
+  },
+  "keywords": ["react", "chat", "laboratory"],
+  "author": "Anton Kholodar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AntonKholodar/Frontend-laboratory-works/issues"
+  },
+  "homepage": "https://github.com/AntonKholodar/Frontend-laboratory-works#readme",
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.5.1",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^4.1.8",
+    "vite": "^6.3.5"
+  }
+}
