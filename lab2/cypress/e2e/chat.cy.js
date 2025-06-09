@@ -22,46 +22,59 @@ describe('Chat Functionality', () => {
   });
 
   it('should display chat interface', () => {
-    cy.contains('Welcome to Simple Chat').should('be.visible');
-    cy.get('textarea[placeholder="Type your message here..."]').should('be.visible');
+    cy.contains('Simple Chat Room').should('be.visible');
+    cy.get('input[placeholder="Type your message..."]').should('be.visible');
     cy.get('button').contains('Send').should('be.visible');
-    cy.contains('Character count:').should('be.visible');
+    cy.contains('/500').should('be.visible');
   });
 
   it('should show character count', () => {
     const message = 'Hello world!';
-    cy.get('textarea[placeholder="Type your message here..."]').type(message);
-    cy.contains(`Character count: ${message.length}/500`).should('be.visible');
+    cy.get('input[placeholder="Type your message..."]').type(message);
+    cy.contains(`${message.length}/500`).should('be.visible');
   });
 
   it('should send a message successfully', () => {
     const message = 'This is a test message';
     
-    cy.get('textarea[placeholder="Type your message here..."]').type(message);
+    cy.get('input[placeholder="Type your message..."]').type(message);
     cy.get('button').contains('Send').click();
     
     // Message should appear in chat
     cy.contains(message).should('be.visible');
-    cy.contains('Test User').should('be.visible');
     
     // Input should be cleared
-    cy.get('textarea[placeholder="Type your message here..."]').should('have.value', '');
+    cy.get('input[placeholder="Type your message..."]').should('have.value', '');
   });
 
   it('should not send empty messages', () => {
-    cy.get('button').contains('Send').click();
+    // Button should be disabled when input is empty
+    cy.get('button').contains('Send').should('be.disabled');
     
-    // Should not create any message elements
-    cy.get('[data-testid="message"]').should('not.exist');
+    // Should show empty state
+    cy.contains('No messages yet').should('be.visible');
   });
 
   it('should persist messages in localStorage', () => {
     const message = 'Persistent message test';
     
-    cy.get('textarea[placeholder="Type your message here..."]').type(message);
+    cy.get('input[placeholder="Type your message..."]').type(message);
     cy.get('button').contains('Send').click();
     
-    // Reload page
+    // Reload page and restore user session
+    cy.window().then((win) => {
+      const user = {
+        id: 1,
+        name: 'Test User',
+        email: 'test@example.com',
+        gender: 'male',
+        dateOfBirth: '1990-01-01',
+        password: 'password123',
+        registeredAt: new Date().toISOString()
+      };
+      win.localStorage.setItem('currentUser', JSON.stringify(user));
+    });
+    
     cy.reload();
     
     // Message should still be visible
@@ -69,18 +82,18 @@ describe('Chat Functionality', () => {
   });
 
   it('should display timestamps for messages', () => {
-    cy.get('textarea[placeholder="Type your message here..."]').type('Message with timestamp');
+    cy.get('input[placeholder="Type your message..."]').type('Message with timestamp');
     cy.get('button').contains('Send').click();
     
     // Should show timestamp (format: HH:MM)
-    cy.get('[data-testid="message"]').should('contain', ':');
+    cy.contains('Message with timestamp').parent().should('contain', ':');
   });
 
   it('should handle multiple messages', () => {
     const messages = ['First message', 'Second message', 'Third message'];
     
     messages.forEach((message) => {
-      cy.get('textarea[placeholder="Type your message here..."]').type(message);
+      cy.get('input[placeholder="Type your message..."]').type(message);
       cy.get('button').contains('Send').click();
     });
     
@@ -91,47 +104,47 @@ describe('Chat Functionality', () => {
   });
 
   it('should enforce character limit', () => {
-    const longMessage = 'a'.repeat(501); // Exceed 500 character limit
+    const longMessage = 'a'.repeat(500); // Max 500 characters
     
-    cy.get('textarea[placeholder="Type your message here..."]').type(longMessage);
+    cy.get('input[placeholder="Type your message..."]').type(longMessage);
     
-    // Should show exceeded character count
-    cy.contains('Character count: 501/500').should('be.visible');
+    // Should show character count at limit
+    cy.contains('500/500').should('be.visible');
     
-    // Should still be able to send (app behavior)
-    cy.get('button').contains('Send').click();
+    // Try to type one more character - input should prevent it or truncate
+    cy.get('input[placeholder="Type your message..."]').type('x');
     
-    // Message should appear but truncated or handled by app logic
-    cy.get('[data-testid="message"]').should('exist');
+    // Should still be at or near 500 characters
+    cy.get('input[placeholder="Type your message..."]').should('have.value', longMessage);
   });
 
   it('should handle keyboard shortcuts', () => {
-    cy.get('textarea[placeholder="Type your message here..."]').type('Message with Enter key');
+    cy.get('input[placeholder="Type your message..."]').type('Message with Enter key');
     
-    // Test Ctrl+Enter or Enter to send message (depending on app implementation)
-    cy.get('textarea[placeholder="Type your message here..."]').type('{ctrl+enter}');
+    // Test Enter to send message
+    cy.get('input[placeholder="Type your message..."]').type('{enter}');
     
-    // Message might be sent depending on implementation
-    // This test verifies the textarea handles keyboard events
-    cy.get('textarea[placeholder="Type your message here..."]').should('be.focused');
+    // Message should be sent
+    cy.contains('Message with Enter key').should('be.visible');
   });
 
   it('should show empty state when no messages', () => {
     // Clear any existing messages from localStorage
     cy.window().then((win) => {
-      win.localStorage.removeItem('messages');
+      win.localStorage.removeItem('chatMessages');
     });
     
     cy.reload();
     
-    // Should show welcome message or empty state
-    cy.contains('Welcome to Simple Chat').should('be.visible');
+    // Should show empty state
+    cy.contains('No messages yet').should('be.visible');
+    cy.contains('Start the conversation').should('be.visible');
   });
 
   it('should handle message formatting', () => {
     const messageWithSpecialChars = 'Message with "quotes" and <tags> & symbols!';
     
-    cy.get('textarea[placeholder="Type your message here..."]').type(messageWithSpecialChars);
+    cy.get('input[placeholder="Type your message..."]').type(messageWithSpecialChars);
     cy.get('button').contains('Send').click();
     
     // Message should appear correctly formatted

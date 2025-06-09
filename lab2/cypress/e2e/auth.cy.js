@@ -32,13 +32,22 @@ describe('Authentication Flow', () => {
     });
 
     it('should validate email format', () => {
-      cy.get('input[name="email"]').type('invalid-email');
+      cy.get('input[name="name"]').type('John Doe');
+      cy.get('input[name="email"]').invoke('attr', 'type', 'text').clear().type('invalid-email-without-at');
+      cy.get('select[name="gender"]').select('male');
+      cy.get('input[name="dateOfBirth"]').type('1990-01-01');
+      cy.get('input[name="password"]').type('password123');
+      
       cy.get('button[type="submit"]').click();
       
       cy.contains('Invalid email format').should('be.visible');
     });
 
     it('should validate password length', () => {
+      cy.get('input[name="name"]').type('John Doe');
+      cy.get('input[name="email"]').type('john@example.com');
+      cy.get('select[name="gender"]').select('male');
+      cy.get('input[name="dateOfBirth"]').type('1990-01-01');
       cy.get('input[name="password"]').type('123');
       cy.get('button[type="submit"]').click();
       
@@ -56,7 +65,7 @@ describe('Authentication Flow', () => {
       
       // Should redirect to chat page
       cy.url().should('include', '/chat');
-      cy.contains('Welcome to Simple Chat').should('be.visible');
+      cy.contains('Simple Chat Room').should('be.visible');
     });
 
     it('should prevent duplicate email registration', () => {
@@ -67,6 +76,12 @@ describe('Authentication Flow', () => {
       cy.get('input[name="dateOfBirth"]').type('1990-01-01');
       cy.get('input[name="password"]').type('password123');
       cy.get('button[type="submit"]').click();
+      
+      // Wait for redirect and clear user session
+      cy.url().should('include', '/chat');
+      cy.window().then((win) => {
+        win.localStorage.removeItem('currentUser');
+      });
       
       // Navigate back to register
       cy.visit('/register');
@@ -129,7 +144,7 @@ describe('Authentication Flow', () => {
       
       // Should redirect to chat page
       cy.url().should('include', '/chat');
-      cy.contains('Welcome to Simple Chat').should('be.visible');
+      cy.contains('Simple Chat Room').should('be.visible');
     });
   });
 }); 
