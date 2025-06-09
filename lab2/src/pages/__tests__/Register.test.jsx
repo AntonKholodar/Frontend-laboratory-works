@@ -31,10 +31,10 @@ describe('Register Component', () => {
     jest.clearAllMocks();
   });
 
-  test('renders registration form correctly', () => {
+    test('renders registration form correctly', () => {
     renderWithRouter(<Register onLogin={mockOnLogin} />);
-    
-    expect(screen.getByText('Register')).toBeInTheDocument();
+
+    expect(screen.getByRole('heading', { name: 'Register' })).toBeInTheDocument();
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
     expect(screen.getByLabelText('Email')).toBeInTheDocument();
     expect(screen.getByLabelText('Gender')).toBeInTheDocument();
@@ -116,12 +116,22 @@ describe('Register Component', () => {
       
       const nameInput = screen.getByLabelText('Name');
       const emailInput = screen.getByLabelText('Email');
+      const passwordInput = screen.getByLabelText('Password');
+      const genderSelect = screen.getByLabelText('Gender');
+      const dateInput = screen.getByLabelText('Date of Birth');
       
+      // Fill all required fields except use invalid email
       fireEvent.change(nameInput, { target: { value: 'John Doe' } });
-      fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
+      fireEvent.change(emailInput, { target: { value: 'invalid.email' } }); // Use period instead of missing @
+      fireEvent.change(genderSelect, { target: { value: 'male' } });
+      fireEvent.change(dateInput, { target: { value: '1990-01-01' } });
+      fireEvent.change(passwordInput, { target: { value: 'password123' } });
       
       const submitButton = screen.getByRole('button', { name: 'Register' });
-      fireEvent.click(submitButton);
+      
+      // Submit the form directly to bypass HTML5 validation
+      const form = submitButton.closest('form');
+      fireEvent.submit(form);
       
       await waitFor(() => {
         expect(screen.getByText('Invalid email format')).toBeInTheDocument();

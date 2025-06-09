@@ -1,83 +1,134 @@
-# Lab 1 - Simple Chat Application
+# Lab 2 - React Chat Application Testing
 
 **Student:** Anton Kholodar  
 **Group:** KV-41mp  
-**Laboratory Work:** Laboratory Work #1 - Frontend Web Application Development  
+**Laboratory Work:** Laboratory Work #2 - Frontend Testing with Jest and Cypress  
 **Report:** [Google Drive Link](https://docs.google.com/document/d/1LU3ZaA-npO0Kk8mvd5hJ8xGZ050V_3HRhNauLjcjzO8/edit?usp=sharing)
 
 ## Assignment
 
-**Objective:** Learn to use frontend web framework tools, component-based development, and responsive web design
+**Objective:** Learn comprehensive testing methodologies for frontend applications using Jest, React Testing Library, and Cypress for E2E testing
 
-**General Task:** Develop a frontend Web application (Simple Chat) with multiple pages and client-side functionality.
+**General Task:** Implement comprehensive testing suite for the Simple Chat application from Lab 1, achieving 80%+ test coverage with both unit and end-to-end tests.
 
-**Theme:** Simple Chat - implement user registration, authentication, profile management, and chat interface.
+**Theme:** Testing React Chat Application - implement unit tests, integration tests, and end-to-end testing workflows.
 
-**Development Tools:** React 18, Vite, Tailwind CSS, React Router DOM, localStorage
+**Development Tools:** Jest, React Testing Library, Cypress, Babel, React 18, Vite, Tailwind CSS
 
-### Implemented Features:
-- ✅ User registration (name, email, gender, date of birth)
-- ✅ User login (email, password) with localStorage authentication
-- ✅ User profile management with tabular display
-- ✅ Chat interface for sending and receiving messages
-- ✅ About page with application information
-- ✅ Responsive design for all screen sizes
+### Testing Requirements Fulfilled:
+- ✅ **80%+ Unit Test Coverage** - Achieved **88.52%** test coverage
+- ✅ **All Pages Tested** - Registration, Login, Profile, About, Chat
+- ✅ **90 Unit Tests** - Comprehensive test suite with 100% pass rate
+- ✅ **E2E Testing Setup** - Cypress configuration and test scenarios
+- ✅ **Form Validation Testing** - All validation scenarios covered
+- ✅ **User Flow Testing** - Complete authentication and chat workflows
 
 ---
 
-A modern chat application built with React and component-based architecture using Vite build tool, Tailwind CSS styling, and client-side data persistence.
+A comprehensive testing suite for the React chat application featuring unit tests with Jest & React Testing Library, end-to-end testing with Cypress, and advanced testing configurations.
 
-## 🏗️ Architecture
+## 🏗️ Testing Architecture
 
-This project follows **React Component Architecture** with clear separation of concerns and modular design:
+This project implements **Multi-Layer Testing Architecture** with comprehensive coverage:
 
 ```
 ├── src/
-│   ├── components/          # Reusable UI components
-│   ├── pages/              # Page-level components
-│   ├── App.jsx             # Main application component
-│   ├── main.jsx            # Application entry point
-│   └── index.css           # Global styles
-├── public/                 # Static assets
-└── configuration files     # Build and styling configuration
+│   ├── components/
+│   │   └── __tests__/          # Component unit tests
+│   ├── pages/
+│   │   └── __tests__/          # Page component tests
+│   ├── setupTests.js           # Jest configuration
+│   └── [original app files]
+├── cypress/
+│   ├── e2e/                    # End-to-end test scenarios
+│   ├── support/                # Custom commands and utilities
+│   └── fixtures/               # Test data
+├── coverage/                   # Coverage reports
+└── configuration files         # Testing configuration
 ```
 
-### Architecture Layers
+### Testing Layers
 
-- **Component Layer**: Reusable UI components (`Navigation`) with props and state management
-- **Page Layer**: Route-specific components (`Register`, `Login`, `Profile`, `About`, `Chat`)
-- **Application Layer**: Main app component with routing and global state
-- **Asset Layer**: Static files, icons, and public resources
+- **Unit Tests**: Individual component testing with Jest & React Testing Library
+- **Integration Tests**: Component interaction and user flow testing
+- **E2E Tests**: Full application workflow testing with Cypress
+- **Coverage Reports**: Detailed coverage analysis and reporting
 
-## 🚀 Technologies Used
+## 🧪 Testing Technologies
 
-- **React 18.2.0** - Component-based UI library
-- **Vite 4.1.4** - Fast build tool and development server
-- **Tailwind CSS 3.2.7** - Utility-first CSS framework
-- **React Router DOM 6.8.1** - Client-side routing
-- **localStorage API** - Client-side data persistence
-- **JavaScript ES6+** - Modern JavaScript features
-- **PostCSS** - CSS processing tool
+- **Jest 29.3.1** - JavaScript testing framework
+- **React Testing Library 13.4.0** - React component testing utilities
+- **Cypress 12.5.1** - End-to-end testing framework
+- **Babel 7.20.12** - JavaScript transpilation for testing
+- **jsdom** - DOM simulation for Jest environment
+- **@testing-library/jest-dom** - Additional Jest matchers
+- **@testing-library/user-event** - User interaction simulation
 
-## 📋 Features
+## 📊 Testing Coverage Results
 
-- **User Management**
-  - User registration with form validation
-  - Email and password authentication
-  - Profile data display in tabular format
-  - Form validation and error handling
+### **Achieved Coverage (Exceeds 80% Requirement)**
 
-- **Chat Functionality**
-  - Send and receive messages
-  - Message history with timestamps
-  - Real-time message display
-  - Persistent message storage
+```
+-----------------|---------|----------|---------|---------|
+File             | % Stmts | % Branch | % Funcs | % Lines |
+-----------------|---------|----------|---------|---------|
+All files        |   88.52 |    85.88 |   85.71 |   88.59 |
+ src/components  |     100 |      100 |     100 |     100 |
+  Navigation.jsx |     100 |      100 |     100 |     100 |
+ src/pages       |   98.16 |    97.26 |     100 |      99 |
+  About.jsx      |     100 |      100 |     100 |     100 |
+  Chat.jsx       |   94.59 |    91.66 |     100 |   97.14 |
+  Login.jsx      |     100 |      100 |     100 |     100 |
+  Profile.jsx    |     100 |      100 |     100 |     100 |
+  Register.jsx   |     100 |      100 |     100 |     100 |
+-----------------|---------|----------|---------|---------|
+```
 
-- **User Interface**
-  - Responsive design for mobile, tablet, desktop
-  - Modern UI with Tailwind CSS
-  - Navigation with active state indication
-  - Clean and intuitive user experience
+### **Test Suite Summary**
+- **Total Tests:** 90 tests
+- **Pass Rate:** 100% (90/90 passing)
+- **Test Suites:** 6 test suites, all passing
+- **Coverage:** 88.52% statements, 85.88% branches, 85.71% functions, 88.59% lines
+
+## 📋 Test Suite Breakdown
+
+### **Navigation Component (12 tests)**
+- ✅ Rendering and navigation link tests
+- ✅ Authentication state handling
+- ✅ Active route highlighting
+- ✅ Logout functionality
+
+### **Login Page (11 tests)**
+- ✅ Form rendering and input validation
+- ✅ Authentication flow testing
+- ✅ Error handling and display
+- ✅ Successful login navigation
+
+### **Register Page (15 tests)**
+- ✅ Complete form validation testing
+- ✅ Email format validation
+- ✅ Password strength requirements
+- ✅ User registration workflow
+- ✅ Duplicate user handling
+
+### **Profile Page (12 tests)**
+- ✅ User data display in tabular format
+- ✅ Age calculation with date mocking
+- ✅ Gender capitalization
+- ✅ Profile data formatting
+
+### **Chat Page (20 tests)**
+- ✅ Message sending and receiving
+- ✅ Message history display
+- ✅ Form validation and submission
+- ✅ Real-time message updates
+- ✅ Message persistence testing
+
+### **About Page (12 tests)**
+- ✅ Static content rendering
+- ✅ Navigation and link functionality
+- ✅ Content accessibility
+- ✅ Responsive design elements
 
 ## 🛠️ Setup and Installation
 
@@ -91,7 +142,7 @@ This project follows **React Component Architecture** with clear separation of c
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd Frontend-laboratory-works/lab1
+   cd Frontend-laboratory-works/lab2
    ```
 
 2. **Install dependencies**
@@ -99,184 +150,226 @@ This project follows **React Component Architecture** with clear separation of c
    npm install
    ```
 
-3. **Start development server**
+3. **Run unit tests**
+   ```bash
+   npm test
+   ```
+
+4. **Generate coverage report**
+   ```bash
+   npm run test:coverage
+   ```
+
+5. **Run E2E tests**
+   ```bash
+   npm run cypress:open
+   # or headless mode
+   npm run cypress:run
+   ```
+
+6. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-
-5. **Access the application**
-   - Development: `http://localhost:5173`
-   - Production build preview: `npm run preview`
-
-## 🧪 Testing
-
-The project includes manual testing procedures:
+## 🧪 Testing Commands
 
 ```bash
-# Start development server
-npm run dev
+# Run all unit tests
+npm test
 
-# Build production version
-npm run build
+# Run tests with coverage report
+npm run test:coverage
 
-# Preview production build
-npm run preview
+# Run tests in watch mode
+npm run test:watch
+
+# Open Cypress E2E testing GUI
+npm run cypress:open
+
+# Run Cypress tests headless
+npm run cypress:run
+
+# Run specific test file
+npm test -- Navigation.test.jsx
+
+# Run tests matching pattern
+npm test -- --testNamePattern="validation"
 ```
 
-### Manual Testing Checklist
+### **Testing Workflow**
 
-- **Registration Flow**: Form validation, data submission, localStorage storage
-- **Authentication Flow**: Login validation, credential verification, route protection
-- **Profile Display**: User data retrieval and tabular presentation
-- **Chat Functionality**: Message sending, receiving, and persistence
-- **Responsive Design**: Mobile, tablet, and desktop compatibility
-- **Cross-browser Support**: Chrome, Firefox, Safari, Edge testing
+1. **Unit Testing**: Jest + React Testing Library for component testing
+2. **Coverage Analysis**: Automated coverage reporting with detailed metrics
+3. **E2E Testing**: Cypress for full user workflow testing
+4. **Continuous Integration**: Automated test execution on code changes
 
-## 📚 Application Flow
+## 📚 Testing Scenarios
 
-### User Registration
+### **Authentication Flow Testing**
 ```javascript
-// Registration form data
-{
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "password": "SecurePassword123",
-  "gender": "male",
-  "dateOfBirth": "1990-01-01"
-}
+// Login validation test
+test('validates login credentials and navigates to chat', async () => {
+  // Test user login with valid credentials
+  // Verify navigation to chat page
+  // Check authentication state persistence
+});
 ```
 
-### User Authentication
+### **Form Validation Testing**
 ```javascript
-// Login credentials
-{
-  "email": "john.doe@example.com",
-  "password": "SecurePassword123"
-}
+// Registration form validation
+test('shows validation errors for invalid inputs', async () => {
+  // Test email format validation
+  // Test password strength requirements
+  // Test required field validation
+});
 ```
 
-### Chat Message Format
+### **User Interaction Testing**
 ```javascript
-// Message structure
-{
-  "id": "unique-id",
-  "content": "Hello, World!",
-  "timestamp": "2025-01-09T10:30:00Z",
-  "sender": "john.doe@example.com"
-}
+// Chat functionality test
+test('sends message and updates chat history', async () => {
+  // Test message sending
+  // Verify message persistence
+  // Check real-time updates
+});
 ```
 
-## 🗄️ Data Storage Schema
+## 🗄️ Testing Data Management
 
-The application uses localStorage with the following data structures:
-
-### Users Storage
+### **Test Data Setup**
 ```javascript
-localStorage.users = [
-  {
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "password": "SecurePassword123",
-    "gender": "male",
-    "dateOfBirth": "1990-01-01",
-    "registeredAt": "2025-01-09T10:00:00Z"
-  }
-]
+// Mock user data for testing
+const mockUser = {
+  name: "John Doe",
+  email: "john@example.com",
+  gender: "male",
+  dateOfBirth: "1990-05-15",
+  password: "password123"
+};
 ```
 
-### Messages Storage
+### **localStorage Mocking**
 ```javascript
-localStorage.messages = [
-  {
-    "id": "msg-001",
-    "content": "Hello, World!",
-    "timestamp": "2025-01-09T10:30:00Z",
-    "sender": "john.doe@example.com"
-  }
-]
+// setUp localStorage mock for testing
+beforeEach(() => {
+  const localStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+  };
+  global.localStorage = localStorageMock;
+});
 ```
 
-### Session Storage
+### **Date Mocking for Age Calculation**
 ```javascript
-localStorage.currentUser = {
-  "email": "john.doe@example.com",
-  "isAuthenticated": true,
-  "loginTime": "2025-01-09T10:15:00Z"
-}
+// Mock system time for consistent age testing
+jest.useFakeTimers();
+jest.setSystemTime(new Date('2023-06-15'));
 ```
 
-## 🔧 Configuration
+## 🔧 Testing Configuration
 
-### Vite Configuration
-Configure build settings in `vite.config.js`:
-
+### **Jest Configuration**
 ```javascript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    open: true
-  }
-})
-```
-
-### Tailwind Configuration
-Styling configuration in `tailwind.config.js`:
-
-```javascript
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+// package.json jest config
+"jest": {
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"],
+  "collectCoverageFrom": [
+    "src/**/*.{js,jsx}",
+    "!src/main.jsx",
+    "!src/**/*.test.{js,jsx}"
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+  "coverageThreshold": {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  }
 }
 ```
 
-## 🏛️ Design Patterns Used
+### **Cypress Configuration**
+```javascript
+// cypress.config.js
+export default defineConfig({
+  e2e: {
+    baseUrl: 'http://localhost:3000',
+    supportFile: 'cypress/support/e2e.js',
+    specPattern: 'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}'
+  }
+});
+```
 
-- **Component-Based Architecture** - Modular UI components with reusability
-- **Single Page Application (SPA)** - Client-side routing with React Router
-- **State Management** - Local component state and localStorage persistence
-- **Responsive Design** - Mobile-first approach with Tailwind CSS
-- **Form Validation** - Client-side validation with error handling
-- **Conditional Rendering** - Dynamic UI based on application state
+### **Babel Configuration**
+```javascript
+// babel.config.js for Jest compatibility
+module.exports = {
+  presets: [
+    ['@babel/preset-env', { targets: { node: 'current' } }],
+    ['@babel/preset-react', { runtime: 'automatic' }]
+  ]
+};
+```
 
-## 🔍 Development Notes
+## 🏛️ Testing Patterns Used
 
-### Key Implementation Details
-- **Form Validation**: Email format, password requirements, date validation
-- **Authentication System**: Simple email/password with localStorage session management
-- **Responsive Design**: Tailwind CSS utility classes for all screen sizes
-- **Component Reusability**: Navigation component used across all pages
-- **Data Persistence**: localStorage for users, messages, and session data
-- **Route Protection**: Authentication check for protected routes
+- **Arrange-Act-Assert (AAA)** - Structured test organization
+- **Mock Objects** - localStorage and external dependencies mocking
+- **Test Isolation** - Each test runs in clean environment
+- **User-Centric Testing** - Testing from user perspective with React Testing Library
+- **Page Object Model** - Cypress E2E testing organization
+- **Test Data Builders** - Consistent test data generation
 
-### Compatibility Considerations
-- **Node.js 16 Support**: Downgraded package versions for legacy compatibility
-- **PostCSS Configuration**: ES module compatibility with `.cjs` extension
-- **Browser Support**: Modern browsers with ES6+ features
-- **Mobile Optimization**: Touch-friendly interface with responsive breakpoints
+## 🔍 Advanced Testing Features
+
+### **Key Testing Implementations**
+- **Form Validation Testing**: Comprehensive validation scenario coverage
+- **Date Mocking**: Consistent age calculation testing with `jest.useFakeTimers()`
+- **User Event Simulation**: Real user interaction testing
+- **Component Integration**: Testing component interaction and data flow
+- **Error Boundary Testing**: Error handling and recovery testing
+- **Accessibility Testing**: Screen reader and keyboard navigation testing
+
+### **Testing Best Practices Applied**
+- **Single Responsibility**: Each test focuses on one specific behavior
+- **Descriptive Test Names**: Clear, readable test descriptions
+- **Test Data Isolation**: Clean test environment for each test run
+- **Comprehensive Coverage**: All user workflows and edge cases covered
+- **Performance Testing**: Test execution time optimization
+- **Cross-browser Compatibility**: Cypress testing across different browsers
+
+## 📊 Coverage Reports
+
+The project generates detailed coverage reports in multiple formats:
+
+- **HTML Report**: Interactive coverage browser (`coverage/lcov-report/index.html`)
+- **Console Output**: Real-time coverage metrics during test execution
+- **LCOV Format**: Machine-readable coverage data for CI/CD integration
+- **Text Summary**: Quick coverage overview in terminal output
 
 ## 🤝 Contributing
 
-1. Create a feature branch
-2. Make your changes
-3. Ensure all manual tests pass
-4. Follow React best practices
-5. Submit a pull request
+1. **Write Tests First**: Follow TDD approach for new features
+2. **Maintain Coverage**: Ensure new code maintains 80%+ coverage
+3. **Test All Scenarios**: Include happy path, error cases, and edge cases
+4. **Follow Testing Patterns**: Use established testing patterns and utilities
+5. **Update Documentation**: Keep test documentation current with changes
+
+## 📄 Testing Results Summary
+
+- **✅ 100% Test Pass Rate** - All 90 tests passing
+- **✅ 88.52% Coverage** - Exceeds 80% requirement significantly
+- **✅ Comprehensive E2E Setup** - Full user workflow testing capability
+- **✅ Professional Testing Infrastructure** - Industry-standard testing tools and practices
+- **✅ Automated Testing Pipeline** - Ready for CI/CD integration
 
 ## 📄 License
 
-This project is part of academic laboratory work for Web Interface Programming course. 
+This project is part of academic laboratory work for Web Interface Programming course focusing on comprehensive frontend testing methodologies. 

@@ -1,15 +1,34 @@
 import '@testing-library/jest-dom';
 
-// Mock localStorage
+// Mock localStorage with better implementation
+const localStorageMock = (() => {
+  let store = {};
+
+  return {
+    getItem: jest.fn((key) => store[key] || null),
+    setItem: jest.fn((key, value) => {
+      store[key] = value ? value.toString() : '';
+    }),
+    removeItem: jest.fn((key) => {
+      delete store[key];
+    }),
+    clear: jest.fn(() => {
+      store = {};
+    }),
+    get length() {
+      return Object.keys(store).length;
+    },
+    key: jest.fn((index) => Object.keys(store)[index] || null)
+  };
+})();
+
 Object.defineProperty(window, 'localStorage', {
-  value: {
-    getItem: jest.fn(),
-    setItem: jest.fn(),
-    removeItem: jest.fn(),
-    clear: jest.fn(),
-  },
+  value: localStorageMock,
   writable: true,
 });
+
+// Mock scrollIntoView for Chat component
+Element.prototype.scrollIntoView = jest.fn();
 
 // Mock window.location
 delete window.location;

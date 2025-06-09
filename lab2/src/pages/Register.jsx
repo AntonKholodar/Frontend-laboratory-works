@@ -23,12 +23,18 @@ function Register({ onLogin }) {
     const newErrors = {}
     
     if (!formData.name.trim()) newErrors.name = 'Name is required'
-    if (!formData.email.trim()) newErrors.email = 'Email is required'
-    if (!formData.email.includes('@')) newErrors.email = 'Invalid email format'
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required'
+    } else if (!formData.email.includes('@')) {
+      newErrors.email = 'Invalid email format'
+    }
     if (!formData.gender) newErrors.gender = 'Gender is required'
     if (!formData.dateOfBirth) newErrors.dateOfBirth = 'Date of birth is required'
-    if (!formData.password) newErrors.password = 'Password is required'
-    if (formData.password.length < 6) newErrors.password = 'Password must be at least 6 characters'
+    if (!formData.password) {
+      newErrors.password = 'Password is required'
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters'
+    }
 
     return newErrors
   }
@@ -71,8 +77,9 @@ function Register({ onLogin }) {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
           <input
+            id="name"
             type="text"
             name="name"
             value={formData.name}
@@ -83,8 +90,9 @@ function Register({ onLogin }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
           <input
+            id="email"
             type="email"
             name="email"
             value={formData.email}
@@ -95,8 +103,9 @@ function Register({ onLogin }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Gender</label>
+          <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
           <select
+            id="gender"
             name="gender"
             value={formData.gender}
             onChange={handleChange}
@@ -111,8 +120,9 @@ function Register({ onLogin }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+          <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700">Date of Birth</label>
           <input
+            id="dateOfBirth"
             type="date"
             name="dateOfBirth"
             value={formData.dateOfBirth}
@@ -123,8 +133,9 @@ function Register({ onLogin }) {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Password</label>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <input
+            id="password"
             type="password"
             name="password"
             value={formData.password}

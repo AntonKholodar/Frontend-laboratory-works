@@ -2,7 +2,6 @@
   "name": "simple-chat-app-testing",
   "version": "2.0.0",
   "description": "Laboratory Work #2 - Testing Web Interfaces with Jest, React Testing Library, and Cypress",
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -50,11 +49,16 @@
   "jest": {
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"],
-    "moduleNameMapping": {
+    "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy"
     },
     "transform": {
       "^.+\\.(js|jsx)$": "babel-jest"
-    }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/main.jsx",
+      "!src/setupTests.js"
+    ]
   }
 }

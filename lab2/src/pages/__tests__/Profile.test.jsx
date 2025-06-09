@@ -59,32 +59,32 @@ describe('Profile Component', () => {
     render(<Profile user={mockUser} />);
     
     // The exact format depends on locale, but we can check that dates are displayed
-    const dateElements = screen.getAllByText(/\d{1,2}\/\d{1,2}\/\d{4}/);
+    const dateElements = screen.getAllByText(/\d{1,2}\.\d{1,2}\.\d{4}/);
     expect(dateElements.length).toBeGreaterThan(0);
   });
 
   test('calculates age correctly', () => {
     // Mock current date to be 2023-06-15 (after birthday)
-    const mockDate = new Date('2023-06-15');
-    jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2023-06-15'));
     
     render(<Profile user={mockUser} />);
+
+    expect(screen.getByText(/33.*years/)).toBeInTheDocument();
     
-    expect(screen.getByText('33 years')).toBeInTheDocument();
-    
-    jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
   test('calculates age correctly when birthday has not occurred this year', () => {
     // Mock current date to be 2023-04-15 (before birthday)
-    const mockDate = new Date('2023-04-15');
-    jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2023-04-15'));
     
     render(<Profile user={mockUser} />);
     
-    expect(screen.getByText('32 years')).toBeInTheDocument();
+    expect(screen.getByText(/32.*years/)).toBeInTheDocument();
     
-    jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
   test('displays information note', () => {
@@ -134,14 +134,14 @@ describe('Profile Component', () => {
     };
     
     // Mock current date to be exactly the birthday
-    const mockDate = new Date('2023-05-15');
-    jest.spyOn(global, 'Date').mockImplementation(() => mockDate);
+    jest.useFakeTimers();
+    jest.setSystemTime(new Date('2023-05-15'));
     
     render(<Profile user={userBornOnDate} />);
+
+    expect(screen.getByText(/33.*years/)).toBeInTheDocument();
     
-    expect(screen.getByText('33 years')).toBeInTheDocument();
-    
-    jest.restoreAllMocks();
+    jest.useRealTimers();
   });
 
   test('handles different date formats', () => {

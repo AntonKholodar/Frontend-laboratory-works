@@ -37,7 +37,7 @@ function Profile({ user }) {
             </tr>
             <tr className="border-b">
               <td className="py-3 px-4 bg-gray-50 font-medium text-gray-700">Gender</td>
-              <td className="py-3 px-4 capitalize">{user.gender}</td>
+              <td className="py-3 px-4">{user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}</td>
             </tr>
             <tr className="border-b">
               <td className="py-3 px-4 bg-gray-50 font-medium text-gray-700">Date of Birth</td>
